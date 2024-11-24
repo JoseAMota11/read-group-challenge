@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { userLoginSchema, userRegisterSchema } from '../utils/user.validation';
+import { userLoginSchema, userRegisterSchema } from '../utils/user.schema';
 
 export const validateRegisterData = (
   req: Request,
