@@ -10,6 +10,11 @@ const bookRouter = Router();
 // Routes
 bookRouter.get('/books', authMiddleware, BookController.getAllBooks);
 bookRouter.get('/books/:id', authMiddleware, BookController.getOneBook);
+bookRouter.get(
+  '/books/:id/export',
+  authMiddleware,
+  BookController.exportBookToCSV
+);
 bookRouter.post(
   '/books',
   authMiddleware,

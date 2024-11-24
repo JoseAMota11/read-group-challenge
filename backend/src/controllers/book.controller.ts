@@ -1,13 +1,14 @@
 import { Request, Response } from 'express';
 import { BookModel } from '../models/book.model';
 import { BooksFilters } from '../types/book.type';
+import { Parser } from 'json2csv';
 
 export class BookController {
   static getAllBooks(req: Request, res: Response) {
     const filters = req.query as any as BooksFilters;
 
-    const current = Number(filters.current) ?? 1;
-    const size = Number(filters.size) ?? 10;
+    const current = filters?.current ? Number(filters.current) : 1;
+    const size = filters?.size ? Number(filters.size) : 10;
 
     try {
       const result = BookModel.findAll(req.userId!, {
@@ -28,7 +29,7 @@ export class BookController {
     } catch (error) {
       res
         .status(500)
-        .json({ message: 'Ocurrió un error al obtener los libros.' });
+        .json({ error: 'Ocurrió un error al obtener los libros.' });
     }
   }
 
@@ -98,6 +99,45 @@ export class BookController {
         error:
           'No se pudo borrar el libro. Verifica los datos e inténtalo de nuevo.',
       });
+    }
+  }
+
+  static exportBookToCSV(req: Request, res: Response) {
+    const { id } = req.params;
+
+    try {
+      const book = BookModel.findOneById(id, req.userId!);
+
+      if (!book) {
+        res.status(404).json({ message: 'Este libro no está disponible' });
+        return;
+      }
+
+      const data = {
+        id: book.id,
+        title: book.title,
+        author: book.author,
+        year: book.year,
+        genre: book.genre.join(', '),
+        coverImage: book.coverImage || '',
+        rating: book.rating || '',
+        isFavorite: book.isFavorite ? 'Sí' : 'No',
+        userId: book.userId,
+        createdAt: book.createdAt,
+        updatedAt: book.updatedAt,
+      };
+
+      const parser = new Parser();
+      const csv = parser.parse(data);
+
+      res.header('Content-Type', 'text/csv');
+      res.header(
+        'Content-Disposition',
+        `attachment; filename="book_${id}.csv"`
+      );
+      res.send(csv);
+    } catch (error) {
+      res.status(500).json({ message: 'Error al exportar el libro.' });
     }
   }
 }
