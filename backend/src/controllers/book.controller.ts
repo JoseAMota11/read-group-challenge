@@ -5,9 +5,31 @@ import { BooksFilters } from '../types/book.type';
 export class BookController {
   static getAllBooks(req: Request, res: Response) {
     const filters = req.query as any as BooksFilters;
-    const result = BookModel.findAll(req.userId!, filters);
 
-    res.status(200).json(result);
+    const current = Number(filters.current) ?? 1;
+    const size = Number(filters.size) ?? 10;
+
+    try {
+      const result = BookModel.findAll(req.userId!, {
+        ...filters,
+        current,
+        size,
+      });
+
+      res.status(200).json({
+        books: result.books,
+        pagination: {
+          total: result.total,
+          current: result.current,
+          totalPages: result.totalPages,
+          size: result.size,
+        },
+      });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: 'Ocurrió un error al obtener los libros.' });
+    }
   }
 
   static getOneBook(req: Request, res: Response) {

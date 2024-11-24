@@ -4,8 +4,12 @@ import { Book, BooksFilters } from '../types/book.type';
 export class BookModel {
   static findAll(userId: string, filters?: BooksFilters) {
     let query = 'SELECT * FROM Books';
+    let countQuery = 'SELECT COUNT(*) AS total FROM Books';
     const conditions: string[] = ['userId = @userId'];
     const params: any = { userId };
+    const current = filters?.current!;
+    const size = filters?.size!;
+    const offset = (current - 1) * size;
 
     if (filters?.author) {
       conditions.push('author LIKE @author');
@@ -21,19 +25,30 @@ export class BookModel {
     }
 
     if (conditions.length > 0) {
-      query += ' WHERE ' + conditions.join(' AND ');
+      const whereClause = ' WHERE ' + conditions.join(' AND ');
+      query += whereClause;
+      countQuery += whereClause;
     }
 
-    query += ' ORDER BY createdAt DESC';
+    query += ' ORDER BY createdAt DESC LIMIT @size OFFSET @offset';
 
     const stmt = db.prepare(query);
-    const books = stmt.all(params) as Book[];
+    const countStmt = db.prepare(countQuery);
 
-    return books.map(({ genre, isFavorite, ...rest }) => ({
-      ...rest,
-      isFavorite: Boolean(isFavorite),
-      genre: JSON.parse(genre as any as string),
-    }));
+    const books = stmt.all({ ...params, size, offset }) as Book[];
+    const { total } = countStmt.get(params) as { total: number };
+
+    return {
+      books: books.map(({ genre, isFavorite, ...rest }) => ({
+        ...rest,
+        isFavorite: Boolean(isFavorite),
+        genre: JSON.parse(genre as any as string),
+      })),
+      total,
+      current,
+      totalPages: Math.ceil(total / size),
+      size,
+    };
   }
 
   static findOneById(id: string, userId: string) {
