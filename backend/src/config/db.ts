@@ -41,7 +41,7 @@ db.exec(`
     rating INTEGER NOT NULL CHECK (rating >= 0 AND rating <= 5),
     comment TEXT NOT NULL,
     createdAt DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (bookId) REFERENCES Libros (id) ON DELETE CASCADE,
+    FOREIGN KEY (bookId) REFERENCES Books (id) ON DELETE CASCADE,
     FOREIGN KEY (userId) REFERENCES Users (id) ON DELETE CASCADE
   );
 `);
