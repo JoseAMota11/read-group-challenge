@@ -12,7 +12,7 @@ export type Book = {
   updatedAt: string;
 };
 
-export type BooksFilters = Pick<Book, 'author' | 'year' | 'genre'> & {
+export type BooksFilters = Pick<Book, 'title' | 'author' | 'year' | 'genre'> & {
   current: number;
   size: number;
 };

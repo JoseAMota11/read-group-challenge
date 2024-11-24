@@ -11,6 +11,10 @@ export class BookModel {
     const size = filters?.size!;
     const offset = (current - 1) * size;
 
+    if (filters?.title) {
+      conditions.push('title LIKE @title');
+      params.title = `%${filters.title}%`;
+    }
     if (filters?.author) {
       conditions.push('author LIKE @author');
       params.author = `%${filters.author}%`;
