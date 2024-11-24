@@ -1,5 +1,4 @@
 import { Button } from 'antd';
-import React from 'react';
 
 function Navbar() {
   return (
@@ -8,8 +7,9 @@ function Navbar() {
         <h1 className="font-semibold text-lg">Biblioteca Personal</h1>
       </header>
       <div className="*:w-[100px] flex gap-2">
-        <Button>Iniciar sesión</Button>
-        <Button type="primary">Registrase</Button>
+        <Button danger type="primary">
+          Cerrar sesión
+        </Button>
       </div>
     </nav>
   );
