@@ -1,0 +1,128 @@
+'use client';
+
+import ErrorMessage from '@/components/error-message';
+import { registerSchema } from '@/schemas/register.schema';
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, Input } from 'antd';
+import Link from 'next/link';
+import {
+  Controller,
+  FieldValues,
+  SubmitHandler,
+  useForm,
+} from 'react-hook-form';
+
+function RegisterPage() {
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({ resolver: zodResolver(registerSchema) });
+
+  const onValid: SubmitHandler<FieldValues> = (values) => {
+    console.log(values);
+  };
+
+  return (
+    <div className="h-screen grid place-content-center">
+      <form
+        onSubmit={handleSubmit(onValid)}
+        className="w-[360px] bg-white p-4 rounded-lg shadow-lg flex flex-col gap-4"
+      >
+        <h2 className="text-center text-xl font-semibold">Regístrate</h2>
+        <Controller
+          name="username"
+          control={control}
+          render={({ field }) => (
+            <div>
+              <div className="flex items-center gap-3">
+                <UserOutlined style={{ color: '#737373', fontSize: 18 }} />
+                <Input
+                  {...field}
+                  placeholder="example123"
+                  size="large"
+                  status={errors.username && 'error'}
+                />
+              </div>
+              {errors.username && (
+                <ErrorMessage>{errors.username.message as string}</ErrorMessage>
+              )}
+            </div>
+          )}
+        />
+        <Controller
+          name="email"
+          control={control}
+          render={({ field }) => (
+            <div>
+              <div className="flex items-center gap-3">
+                <MailOutlined style={{ color: '#737373', fontSize: 18 }} />
+                <Input
+                  {...field}
+                  placeholder="example@gmail.com"
+                  size="large"
+                  status={errors.email && 'error'}
+                />
+              </div>
+              {errors.email && (
+                <ErrorMessage>{errors.email.message as string}</ErrorMessage>
+              )}
+            </div>
+          )}
+        />
+        <Controller
+          name="password"
+          control={control}
+          render={({ field }) => (
+            <div>
+              <div className="flex items-center gap-3">
+                <LockOutlined style={{ color: '#737373', fontSize: 18 }} />
+                <Input.Password
+                  {...field}
+                  placeholder="******"
+                  size="large"
+                  status={errors.password && 'error'}
+                />
+              </div>
+              {errors.password && (
+                <ErrorMessage>{errors.password.message as string}</ErrorMessage>
+              )}
+            </div>
+          )}
+        />
+        <Controller
+          name="confirmPassword"
+          control={control}
+          render={({ field }) => (
+            <div>
+              <div className="flex items-center gap-3">
+                <LockOutlined style={{ color: '#737373', fontSize: 18 }} />
+                <Input.Password
+                  {...field}
+                  id="confirmPassword"
+                  placeholder="******"
+                  size="large"
+                  status={errors.confirmPassword && 'error'}
+                />
+              </div>
+              {errors.confirmPassword && (
+                <ErrorMessage>
+                  {errors.confirmPassword.message as string}
+                </ErrorMessage>
+              )}
+            </div>
+          )}
+        />
+        <Button type="primary" htmlType="submit" size="large">
+          Registrarse
+        </Button>
+        <Link href="/login" className="text-center text-blue-400 underline">
+          ¿Ya tienes una cuenta?
+        </Link>
+      </form>
+    </div>
+  );
+}
+
+export default RegisterPage;
