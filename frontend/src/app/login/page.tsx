@@ -1,11 +1,16 @@
 'use client';
 
 import ErrorMessage from '@/components/error-message';
+import { useMessage } from '@/context/message.context';
 import { loginSchema } from '@/schemas/login.schema';
+import { loginUser } from '@/services/login.service';
+import { Login } from '@/types/login.type';
+import { setToken } from '@/utils/cookies-handlers';
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from 'antd';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Controller,
   FieldValues,
@@ -19,9 +24,18 @@ function LoginPage() {
     control,
     formState: { errors },
   } = useForm({ resolver: zodResolver(loginSchema) });
+  const messageApi = useMessage();
+  const router = useRouter();
 
-  const onValid: SubmitHandler<FieldValues> = (values) => {
-    console.log(values);
+  const onValid: SubmitHandler<FieldValues> = async (values) => {
+    const [error, token] = await loginUser(values as Login);
+
+    if (error) {
+      messageApi.error(error);
+    } else {
+      setToken(token!);
+      router.push('/');
+    }
   };
 
   return (
