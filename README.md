@@ -5,8 +5,6 @@
 
 Sistema de Gestión de Biblioteca Personal es un proyecto CRUD desarrollado completamente en TypeScript, con **Node.js** en el backend y **Next.js** en el frontend. Este proyecto permite:
 
-- Mostrar, agregar, eliminar y editar libros.
-- Etc.
 - **(Proyecto no terminado).**
 
 ## Requisitos previos
@@ -149,6 +147,15 @@ Frontend: *.env.local*
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:4000/api/v1
 ```
+
+## Recomendaciones
+
+Este proyecto aún está en desarrollo. Por ello, le sugiero probar el backend de manera independiente utilizando herramientas como Postman o cualquier cliente HTTP de su preferencia.
+
+Si desea probar el frontend, puede iniciar sesión con las siguientes credenciales de prueba:
+
+- Correo: <jama11@gmail.com>
+- Contraseña: `123456`
 
 ---
 

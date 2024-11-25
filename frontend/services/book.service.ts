@@ -12,14 +12,14 @@ type Response = {
   };
 };
 
-export const getAllBooks = async () => {
-  const token = cookies().get('token');
+const TOKEN = cookies().get('token');
 
+export const getAllBooks = async () => {
   const res = await fetch(`${URL}/books`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer ' + token?.value,
+      Authorization: 'Bearer ' + TOKEN?.value,
     },
   });
   const result = await res.json();
@@ -28,13 +28,11 @@ export const getAllBooks = async () => {
 };
 
 export const getOneBook = async (id: string) => {
-  const token = cookies().get('token');
-
   const res = await fetch(`${URL}/books/${id}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer ' + token?.value,
+      Authorization: 'Bearer ' + TOKEN?.value,
     },
   });
 
