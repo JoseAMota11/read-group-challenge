@@ -75,6 +75,25 @@ export const createBook = async (body: Book) => {
   return [undefined, message] as const;
 };
 
+export const updateBook = async (id: string, body: Partial<Book>) => {
+  const res = await fetch(`${API_URL}/books/${id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getToken(),
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const { error }: { error: string } = await res.json();
+    return [error, undefined] as const;
+  }
+
+  const { message }: { message: string } = await res.json();
+  return [undefined, message] as const;
+};
+
 export const deleteBook = async (id: string) => {
   const res = await fetch(`${API_URL}/books/${id}`, {
     method: 'DELETE',

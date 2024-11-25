@@ -1,10 +1,10 @@
 'use client';
 
-import { deleteBook, getOneBook } from '@/services/book.service';
+import { deleteBook, getOneBook, updateBook } from '@/services/book.service';
 import { Book } from '@/types/book.type';
 import { DeleteOutlined, EditOutlined, StarOutlined } from '@ant-design/icons';
 import { Button, Tag, Tooltip } from 'antd';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import booksGenresOptions from '@/books-genres.json';
 import { useMessage } from '@/context/message.context';
 import { useRouter } from 'next/navigation';
@@ -33,7 +33,7 @@ function DetailsBookPage({ params }: PageProps) {
     return (
       <div className="grid place-content-center py-4">
         <div className="w-[400px] flex flex-col items-center gap-4">
-          <ActionBar book={book} />
+          <ActionBar book={book} setBook={setBook} />
           <Genres genre={genre} />
           <h3 className="text-xl font-semibold">{title}</h3>
           <img
@@ -70,7 +70,13 @@ function Genres({ genre }: { genre: string[] }) {
   );
 }
 
-function ActionBar({ book }: { book: Book }) {
+function ActionBar({
+  book,
+  setBook,
+}: {
+  book: Book;
+  setBook: Dispatch<SetStateAction<Book | undefined>>;
+}) {
   const messageApi = useMessage();
   const router = useRouter();
 
@@ -87,7 +93,21 @@ function ActionBar({ book }: { book: Book }) {
     }
   };
 
-  const handleFavorite = () => {};
+  const handleFavorite = async () => {
+    const [error] = await updateBook(book.id, {
+      isFavorite: !book.isFavorite,
+    });
+
+    if (error) {
+      messageApi.error(error);
+    } else {
+      messageApi.info(
+        `Libro ${book.isFavorite ? 'eliminado de' : 'añadido a'} favoritos.`
+      );
+      const [_error, updatedBook] = await getOneBook(book.id);
+      setBook(updatedBook);
+    }
+  };
 
   return (
     <div className="w-full flex items-center justify-end gap-2">
