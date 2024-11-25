@@ -3,6 +3,7 @@ import { BookController } from '../controllers/book.controller';
 import {
   authMiddleware,
   validateBooksData,
+  validateBooksDataPartial,
 } from '../middlewares/book.middleware';
 
 const bookRouter = Router();
@@ -21,10 +22,10 @@ bookRouter.post(
   validateBooksData,
   BookController.setBook
 );
-bookRouter.put(
+bookRouter.patch(
   '/books/:id',
   authMiddleware,
-  validateBooksData,
+  validateBooksDataPartial,
   BookController.updateBook
 );
 bookRouter.delete('/books/:id', authMiddleware, BookController.deleteBook);

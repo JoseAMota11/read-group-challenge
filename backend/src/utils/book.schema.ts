@@ -10,3 +10,5 @@ export const bookSchema = z.object({
   isFavorite: z.boolean(),
   userId: z.string().uuid(),
 });
+
+export const bookSchemaPartial = bookSchema.partial();

@@ -128,39 +128,60 @@ export class BookModel {
     }
   }
 
-  static update(id: string, book: Book) {
-    const {
-      title,
-      author,
-      year,
-      genre,
-      coverImage,
-      rating,
-      isFavorite,
-      userId,
-    } = book;
+  static update(id: string, book: Partial<Book>) {
+    const updates: string[] = [];
+    const params: any[] = [];
 
-    const stmt = db.prepare(
-      `UPDATE Books 
-       SET title = ?, author = ?, year = ?, genre = ?, coverImage = ?, rating = ?, isFavorite = ? 
-       WHERE userId = ? AND id = ?`
-    );
+    if (book.title !== undefined) {
+      updates.push('title = ?');
+      params.push(book.title);
+    }
+    if (book.author !== undefined) {
+      updates.push('author = ?');
+      params.push(book.author);
+    }
+    if (book.year !== undefined) {
+      updates.push('year = ?');
+      params.push(book.year);
+    }
+    if (book.genre !== undefined) {
+      updates.push('genre = ?');
+      params.push(JSON.stringify(book.genre));
+    }
+    if (book.coverImage !== undefined) {
+      updates.push('coverImage = ?');
+      params.push(book.coverImage);
+    }
+    if (book.rating !== undefined) {
+      updates.push('rating = ?');
+      params.push(book.rating);
+    }
+    if (book.isFavorite !== undefined) {
+      updates.push('isFavorite = ?');
+      params.push(Number(book.isFavorite));
+    }
+
+    params.push(book.userId);
+    params.push(id);
+
+    if (updates.length === 0) {
+      throw new Error('No se proporcionaron campos para actualizar.');
+    }
+
+    const query = `
+      UPDATE Books
+      SET ${updates.join(', ')}
+      WHERE userId = ? AND id = ?
+    `;
+
+    const stmt = db.prepare(query);
 
     try {
-      const info = stmt.run(
-        title,
-        author,
-        year,
-        JSON.stringify(genre),
-        coverImage,
-        rating,
-        Number(isFavorite),
-        userId,
-        id
-      );
+      const info = stmt.run(...params);
 
       return { changes: Boolean(info.changes) };
     } catch (error) {
+      console.error('Error al actualizar el libro:', error);
       throw new Error(
         'No se pudo actualizar el libro. Inténtalo de nuevo más tarde.'
       );
