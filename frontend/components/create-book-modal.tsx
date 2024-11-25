@@ -12,7 +12,7 @@ import {
 } from 'react-hook-form';
 import booksGenresOptions from '@/books-genres.json';
 import { getTokenDecoded } from '@/utils/cookies-handlers';
-import { createOneBook } from '@/services/book.service';
+import { createBook } from '@/services/book.service';
 import { Book } from '@/types/book.type';
 import { useMessage } from '@/context/message.context';
 import { useFilters } from '@/context/filters.context';
@@ -41,7 +41,7 @@ function CreateBookModal({
       data['userId'] = id;
     }
 
-    const [error, message] = await createOneBook(data as Book);
+    const [error, message] = await createBook(data as Book);
 
     if (error) {
       messageApi.error(error);

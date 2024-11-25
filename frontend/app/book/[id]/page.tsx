@@ -1,8 +1,13 @@
 'use client';
 
-import { getOneBook } from '@/services/book.service';
+import { deleteBook, getOneBook } from '@/services/book.service';
 import { Book } from '@/types/book.type';
+import { DeleteOutlined, EditOutlined, StarOutlined } from '@ant-design/icons';
+import { Button, Tag, Tooltip } from 'antd';
 import { useEffect, useState } from 'react';
+import booksGenresOptions from '@/books-genres.json';
+import { useMessage } from '@/context/message.context';
+import { useRouter } from 'next/navigation';
 
 type PageProps = {
   params: { id: string };
@@ -11,7 +16,7 @@ type PageProps = {
 function DetailsBookPage({ params }: PageProps) {
   const { id } = params;
   const [book, setBook] = useState<Book>();
-  const [error, setError] = useState<string>();
+  const [_error, setError] = useState<string>();
 
   useEffect(() => {
     (async () => {
@@ -22,25 +27,99 @@ function DetailsBookPage({ params }: PageProps) {
     })();
   }, [id]);
 
-  if (error) {
-    return <div>Error: 404</div>;
-  }
-
   if (book) {
-    const { title, coverImage, author } = book;
+    const { title, coverImage, author, genre } = book;
 
     return (
-      <div className="flex flex-col items-center gap-2 py-4">
-        <h3 className="text-xl font-semibold">{title}</h3>
-        <img
-          src={coverImage}
-          alt={title}
-          className="w-[400px] rounded-lg shadow-lg"
-        />
-        <p>Autor: {author}</p>
+      <div className="grid place-content-center py-4">
+        <div className="w-[400px] flex flex-col items-center gap-4">
+          <ActionBar book={book} />
+          <Genres genre={genre} />
+          <h3 className="text-xl font-semibold">{title}</h3>
+          <img
+            src={coverImage}
+            alt={title}
+            className="w-full rounded-lg shadow-lg"
+          />
+          <p>Autor: {author}</p>
+        </div>
       </div>
     );
   }
 }
 
 export default DetailsBookPage;
+
+function Genres({ genre }: { genre: string[] }) {
+  const transformedGenre: string[] = [];
+
+  booksGenresOptions.forEach(({ value, label }) => {
+    if (genre.includes(value)) {
+      transformedGenre.push(label);
+    }
+  });
+
+  return (
+    <div className="w-full">
+      {transformedGenre.map((value) => (
+        <Tag key={value} className="text-lg">
+          {value}
+        </Tag>
+      ))}
+    </div>
+  );
+}
+
+function ActionBar({ book }: { book: Book }) {
+  const messageApi = useMessage();
+  const router = useRouter();
+
+  const handleEdit = () => {};
+
+  const handleDelete = async () => {
+    const [error, message] = await deleteBook(book.id);
+
+    if (error) {
+      messageApi.error(error);
+    } else {
+      messageApi.success(message);
+      router.replace('/');
+    }
+  };
+
+  const handleFavorite = () => {};
+
+  return (
+    <div className="w-full flex items-center justify-end gap-2">
+      <Tooltip title="Editar" color="#3b82f6">
+        <Button
+          type="text"
+          className="hover:text-blue-500"
+          icon={<EditOutlined className="text-xl" />}
+          onClick={handleEdit}
+        />
+      </Tooltip>
+      <Tooltip title="Borrar" color="#ef4444">
+        <Button
+          type="text"
+          className="hover:text-red-500"
+          icon={<DeleteOutlined className="text-xl" />}
+          onClick={handleDelete}
+        />
+      </Tooltip>
+      <Tooltip
+        title={book.isFavorite ? 'Borrar de favoritos' : 'Añadir a favoritos'}
+        color="#eab308"
+      >
+        <Button
+          type="text"
+          className={
+            book.isFavorite ? 'text-yellow-500' : 'hover:text-yellow-500'
+          }
+          icon={<StarOutlined className="text-xl" />}
+          onClick={handleFavorite}
+        />
+      </Tooltip>
+    </div>
+  );
+}
