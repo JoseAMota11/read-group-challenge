@@ -1,5 +1,5 @@
-import { Register } from '@/types/register.type';
-import { URL } from '@/utils/constants';
+import { Register } from '../types/register.type';
+import { URL } from '../utils/constants';
 
 export const registerUser = async (body: Register) => {
   const res = await fetch(`${URL}/register`, {
