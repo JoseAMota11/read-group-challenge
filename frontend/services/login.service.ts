@@ -1,8 +1,8 @@
 import { Login } from '@/types/login.type';
-import { URL } from '@/utils/constants';
+import { API_URL } from '@/utils/constants';
 
 export const loginUser = async (body: Login) => {
-  const res = await fetch(`${URL}/login`, {
+  const res = await fetch(`${API_URL}/login`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

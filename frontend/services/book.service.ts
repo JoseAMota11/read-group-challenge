@@ -5,7 +5,7 @@ import { Book } from '@/types/book.type';
 import { API_URL } from '@/utils/constants';
 import { getToken } from '@/utils/cookies-handlers';
 
-type Response = {
+export type Response = {
   books: Book[];
   pagination: {
     total: number;

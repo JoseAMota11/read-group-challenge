@@ -11,7 +11,7 @@ import {
 
 type FiltersContextType = {
   filters: Filters;
-  handleSetFilters: (key: keyof Filters, value: string) => void;
+  handleSetFilters: (filters: Filters) => void;
 };
 
 const filtersContext = createContext<FiltersContextType | null>(null);
@@ -21,19 +21,16 @@ export type Filters = {
   author?: string;
   year?: string;
   genre?: string;
+  current?: string;
+  size?: string;
 };
 
 export function FiltersProvider({ children }: { children: ReactNode }) {
-  const [filters, setFilters] = useState<Filters>({
-    title: undefined,
-    author: undefined,
-    year: undefined,
-    genre: undefined,
-  });
+  const [filters, setFilters] = useState<Filters>({});
 
   const handleSetFilters = useCallback(
-    debounce((key: keyof Filters, value) => {
-      setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
+    debounce((filters: Filters) => {
+      setFilters((prevFilters) => ({ ...prevFilters, ...filters }));
     }, 400),
     []
   );

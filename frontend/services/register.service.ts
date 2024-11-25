@@ -1,8 +1,8 @@
 import { Register } from '../types/register.type';
-import { URL } from '../utils/constants';
+import { API_URL } from '../utils/constants';
 
 export const registerUser = async (body: Register) => {
-  const res = await fetch(`${URL}/register`, {
+  const res = await fetch(`${API_URL}/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
