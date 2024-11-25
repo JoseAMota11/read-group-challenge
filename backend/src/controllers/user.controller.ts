@@ -6,10 +6,24 @@ export class UserController {
   static register(req: Request, res: Response) {
     const user = req.body as User;
 
-    const { changes } = UserModel.create(user);
+    try {
+      const { changes } = UserModel.create(user);
 
-    if (changes) {
-      res.status(200).json({ message: 'Usuario creado satisfactoriamente' });
+      if (changes) {
+        res.status(200).json({ message: 'Usuario creado satisfactoriamente' });
+      }
+    } catch (error: unknown) {
+      if (
+        error instanceof Error &&
+        'code' in error &&
+        error.code === 'SQLITE_CONSTRAINT_UNIQUE'
+      ) {
+        res.status(409).json({ error: 'Este correo ya está en uso.' });
+      } else {
+        res.status(500).json({
+          error: 'Error interno del servidor. Por favor, inténtelo más tarde.',
+        });
+      }
     }
   }
 
