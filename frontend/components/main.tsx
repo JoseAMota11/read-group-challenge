@@ -10,7 +10,7 @@ import { Pagination } from 'antd';
 function Main() {
   const [books, setBooks] = useState<Book[]>([]);
   const [pagination, setPagination] = useState<Response['pagination']>();
-  const { filters, handleSetFilters } = useFilters();
+  const { filters, handleSetFilters, refresh } = useFilters();
 
   useEffect(() => {
     (async () => {
@@ -19,7 +19,7 @@ function Main() {
       setBooks(books);
       setPagination(pagination);
     })();
-  }, [filters]);
+  }, [filters, refresh]);
 
   const handlePageChange = (page: number, pageSize: number) => {
     handleSetFilters({ current: String(page), size: String(pageSize) });

@@ -1,19 +1,22 @@
 'use client';
 
 import { useFilters } from '@/context/filters.context';
-import { Input, InputNumber, Select } from 'antd';
+import { Button, Input, InputNumber, Select } from 'antd';
+import { Dispatch, SetStateAction } from 'react';
 
-function Filters() {
+function Filters({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) {
   const { handleSetFilters } = useFilters();
 
   return (
     <section className="flex justify-center">
-      <div className="w-[800px]">
+      <div className="w-[800px] flex flex-col gap-2">
         <div>
           <Input
             size="large"
             placeholder="Ej: Don Quijote de la Mancha"
-            onChange={(e) => handleSetFilters('title', e.target.value)}
+            onChange={(e) =>
+              handleSetFilters({ title: e.target.value, current: '1' })
+            }
           />
         </div>
         <div className="flex flex-1 gap-4 *:w-full [&>div>h4]:font-semibold">
@@ -22,7 +25,9 @@ function Filters() {
             <Input
               size="large"
               placeholder="Ej: Miguel de Cervantes"
-              onChange={(e) => handleSetFilters('author', e.target.value)}
+              onChange={(e) =>
+                handleSetFilters({ author: e.target.value, current: '1' })
+              }
             />
           </div>
           <div>
@@ -31,7 +36,9 @@ function Filters() {
               size="large"
               placeholder="Ej: 1605"
               style={{ width: '100%' }}
-              onChange={(value) => handleSetFilters('year', value as string)}
+              onChange={(value) =>
+                handleSetFilters({ year: value as string, current: '1' })
+              }
             />
           </div>
           <div>
@@ -40,9 +47,16 @@ function Filters() {
               size="large"
               placeholder="Ej: Aventura"
               style={{ width: '100%' }}
-              onSelect={(value) => handleSetFilters('genre', value)}
+              onSelect={(value) =>
+                handleSetFilters({ genre: value, current: '1' })
+              }
             />
           </div>
+        </div>
+        <div className="self-end">
+          <Button type="primary" size="large" onClick={() => setOpen(true)}>
+            Añadir libro
+          </Button>
         </div>
       </div>
     </section>

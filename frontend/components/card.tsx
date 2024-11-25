@@ -15,9 +15,9 @@ function Card({ id, title, coverImage }: Book) {
       <img
         src={coverImage}
         alt={title}
-        className="w-full h-full object-cover"
+        className="w-full h-[400px] object-cover rounded-lg"
       />
-      <h2 className="text-lg text-wrap font-medium">{title}</h2>
+      <h2 className="text-wrap font-medium">{title}</h2>
     </div>
   );
 }

@@ -12,6 +12,8 @@ import {
 type FiltersContextType = {
   filters: Filters;
   handleSetFilters: (filters: Filters) => void;
+  refresh: boolean;
+  refreshData: () => void;
 };
 
 const filtersContext = createContext<FiltersContextType | null>(null);
@@ -27,6 +29,7 @@ export type Filters = {
 
 export function FiltersProvider({ children }: { children: ReactNode }) {
   const [filters, setFilters] = useState<Filters>({});
+  const [refresh, setRefresh] = useState(false);
 
   const handleSetFilters = useCallback(
     debounce((filters: Filters) => {
@@ -35,8 +38,14 @@ export function FiltersProvider({ children }: { children: ReactNode }) {
     []
   );
 
+  const refreshData = () => {
+    setRefresh((prevState) => !prevState);
+  };
+
   return (
-    <filtersContext.Provider value={{ filters, handleSetFilters }}>
+    <filtersContext.Provider
+      value={{ filters, handleSetFilters, refresh, refreshData }}
+    >
       {children}
     </filtersContext.Provider>
   );
@@ -51,7 +60,7 @@ export function useFilters() {
     );
   }
 
-  const { filters, handleSetFilters } = context;
+  const { filters, handleSetFilters, refresh, refreshData } = context;
 
-  return { filters, handleSetFilters };
+  return { filters, handleSetFilters, refresh, refreshData };
 }

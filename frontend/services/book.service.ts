@@ -39,7 +39,7 @@ export const getAllBooks = async (filters?: Filters) => {
 };
 
 export const getOneBook = async (id: string) => {
-  const res = await fetch(`${URL}/books/${id}`, {
+  const res = await fetch(`${API_URL}/books/${id}`, {
     method: 'GET',
     headers: {
       accept: 'application/json',
@@ -54,4 +54,23 @@ export const getOneBook = async (id: string) => {
 
   const data = await res.json();
   return [undefined, data as Book] as const;
+};
+
+export const createOneBook = async (body: Book) => {
+  const res = await fetch(`${API_URL}/books/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + getToken(),
+    },
+    body: JSON.stringify(body),
+  });
+
+  if (!res.ok) {
+    const { error }: { error: string } = await res.json();
+    return [error, undefined] as const;
+  }
+
+  const { message }: { message: string } = await res.json();
+  return [undefined, message] as const;
 };

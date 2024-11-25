@@ -1,0 +1,210 @@
+[
+  {
+    "value": "aventura",
+    "label": "Aventura"
+  },
+  {
+    "value": "ciencia-ficcion",
+    "label": "Ciencia Ficción"
+  },
+  {
+    "value": "fantasia",
+    "label": "Fantasía"
+  },
+  {
+    "value": "misterio",
+    "label": "Misterio"
+  },
+  {
+    "value": "terror",
+    "label": "Terror"
+  },
+  {
+    "value": "romance",
+    "label": "Romance"
+  },
+  {
+    "value": "clasicos",
+    "label": "Clásicos"
+  },
+  {
+    "value": "historico",
+    "label": "Histórico"
+  },
+  {
+    "value": "biografia",
+    "label": "Biografía"
+  },
+  {
+    "value": "autobiografia",
+    "label": "Autobiografía"
+  },
+  {
+    "value": "poesia",
+    "label": "Poesía"
+  },
+  {
+    "value": "infantil",
+    "label": "Infantil"
+  },
+  {
+    "value": "juvenil",
+    "label": "Juvenil"
+  },
+  {
+    "value": "drama",
+    "label": "Drama"
+  },
+  {
+    "value": "comedia",
+    "label": "Comedia"
+  },
+  {
+    "value": "suspenso",
+    "label": "Suspenso"
+  },
+  {
+    "value": "autoayuda",
+    "label": "Autoayuda"
+  },
+  {
+    "value": "educativo",
+    "label": "Educativo"
+  },
+  {
+    "value": "religioso",
+    "label": "Religioso"
+  },
+  {
+    "value": "filosofia",
+    "label": "Filosofía"
+  },
+  {
+    "value": "psicologia",
+    "label": "Psicología"
+  },
+  {
+    "value": "ciencia",
+    "label": "Ciencia"
+  },
+  {
+    "value": "ensayo",
+    "label": "Ensayo"
+  },
+  {
+    "value": "humor",
+    "label": "Humor"
+  },
+  {
+    "value": "arte",
+    "label": "Arte"
+  },
+  {
+    "value": "viajes",
+    "label": "Viajes"
+  },
+  {
+    "value": "gastronomia",
+    "label": "Gastronomía"
+  },
+  {
+    "value": "negocios",
+    "label": "Negocios"
+  },
+  {
+    "value": "politica",
+    "label": "Política"
+  },
+  {
+    "value": "tecnologia",
+    "label": "Tecnología"
+  },
+  {
+    "value": "deportes",
+    "label": "Deportes"
+  },
+  {
+    "value": "salud",
+    "label": "Salud"
+  },
+  {
+    "value": "horror",
+    "label": "Horror"
+  },
+  {
+    "value": "thriller",
+    "label": "Thriller"
+  },
+  {
+    "value": "sobrenatural",
+    "label": "Sobrenatural"
+  },
+  {
+    "value": "distopia",
+    "label": "Distopía"
+  },
+  {
+    "value": "utopia",
+    "label": "Utopía"
+  },
+  {
+    "value": "realismo-magico",
+    "label": "Realismo Mágico"
+  },
+  {
+    "value": "mitologia",
+    "label": "Mitología"
+  },
+  {
+    "value": "erotico",
+    "label": "Erótico"
+  },
+  {
+    "value": "medicina",
+    "label": "Medicina"
+  },
+  {
+    "value": "arquitectura",
+    "label": "Arquitectura"
+  },
+  {
+    "value": "historia",
+    "label": "Historia"
+  },
+  {
+    "value": "literatura",
+    "label": "Literatura"
+  },
+  {
+    "value": "manualidades",
+    "label": "Manualidades"
+  },
+  {
+    "value": "negocios-y-finanzas",
+    "label": "Negocios y Finanzas"
+  },
+  {
+    "value": "cultura",
+    "label": "Cultura"
+  },
+  {
+    "value": "naturaleza",
+    "label": "Naturaleza"
+  },
+  {
+    "value": "desarrollo-personal",
+    "label": "Desarrollo Personal"
+  },
+  {
+    "value": "aventuras-epicas",
+    "label": "Aventuras Épicas"
+  },
+  {
+    "value": "antologia",
+    "label": "Antología"
+  },
+  {
+    "value": "teatro",
+    "label": "Teatro"
+  }
+]
