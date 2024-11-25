@@ -1,6 +1,9 @@
+'use client';
+
+import { Filters } from '@/context/filters.context';
 import { Book } from '@/types/book.type';
-import { URL } from '@/utils/constants';
-import { cookies } from 'next/headers';
+import { API_URL } from '@/utils/constants';
+import { getToken } from '@/utils/cookies-handlers';
 
 type Response = {
   books: Book[];
@@ -12,14 +15,22 @@ type Response = {
   };
 };
 
-const TOKEN = cookies().get('token');
+export const getAllBooks = async (filters?: Filters) => {
+  const url = new URL(`${API_URL}/books`);
 
-export const getAllBooks = async () => {
-  const res = await fetch(`${URL}/books`, {
+  if (filters) {
+    for (const [key, value] of Object.entries(filters)) {
+      if (value) {
+        url.searchParams.set(key, value);
+      }
+    }
+  }
+
+  const res = await fetch(url.toString(), {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer ' + TOKEN?.value,
+      Authorization: 'Bearer ' + getToken(),
     },
   });
   const result = await res.json();
@@ -32,7 +43,7 @@ export const getOneBook = async (id: string) => {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization: 'Bearer ' + TOKEN?.value,
+      Authorization: 'Bearer ' + getToken(),
     },
   });
 
