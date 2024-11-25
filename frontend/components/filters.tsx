@@ -3,6 +3,7 @@
 import { useFilters } from '@/context/filters.context';
 import { Button, Input, InputNumber, Select } from 'antd';
 import { Dispatch, SetStateAction } from 'react';
+import booksGenresOptions from '@/books-genres.json';
 
 function Filters({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) {
   const { handleSetFilters } = useFilters();
@@ -47,8 +48,14 @@ function Filters({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) {
               size="large"
               placeholder="Ej: Aventura"
               style={{ width: '100%' }}
+              options={booksGenresOptions}
+              showSearch
+              allowClear
               onSelect={(value) =>
                 handleSetFilters({ genre: value, current: '1' })
+              }
+              onClear={() =>
+                handleSetFilters({ genre: undefined, current: '1' })
               }
             />
           </div>

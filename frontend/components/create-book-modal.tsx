@@ -28,6 +28,7 @@ function CreateBookModal({
     control,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({ resolver: zodResolver(bookSchema) });
   const messageApi = useMessage();
   const { refreshData } = useFilters();
@@ -47,19 +48,20 @@ function CreateBookModal({
       messageApi.error(error);
     } else {
       messageApi.success(message);
-      handleClose();
+      handleCancel();
       refreshData();
     }
   };
 
-  const handleClose = () => {
+  const handleCancel = () => {
     setOpen(false);
+    reset();
   };
 
   return (
     <Modal
       open={open}
-      onCancel={handleClose}
+      onCancel={handleCancel}
       footer={false}
       closeIcon={false}
       className="w-fit"

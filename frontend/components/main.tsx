@@ -37,6 +37,14 @@ function Main() {
     );
   }
 
+  if (books.length === 0) {
+    return (
+      <p className="text-center">
+        ¡Uups! Parece que no hay resultados para esta búsqueda.
+      </p>
+    );
+  }
+
   return (
     <main className="flex flex-col items-center gap-4">
       <div className="w-[800px] grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
