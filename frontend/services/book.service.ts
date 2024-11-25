@@ -26,3 +26,23 @@ export const getAllBooks = async () => {
 
   return result as Response;
 };
+
+export const getOneBook = async (id: string) => {
+  const token = cookies().get('token');
+
+  const res = await fetch(`${URL}/books/${id}`, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer ' + token?.value,
+    },
+  });
+
+  if (!res.ok) {
+    const { error }: { error: string } = await res.json();
+    return [error, undefined] as const;
+  }
+
+  const data = await res.json();
+  return [undefined, data as Book] as const;
+};

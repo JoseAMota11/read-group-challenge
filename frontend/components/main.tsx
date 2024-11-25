@@ -5,7 +5,7 @@ async function Main() {
   const { books } = await getAllBooks();
 
   return (
-    <div className="grid grid-cols-[repeat(auto-fill,minmax(200px,1fr))] gap-4">
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
       {books.map((book) => (
         <Card key={book.id} {...book} />
       ))}
