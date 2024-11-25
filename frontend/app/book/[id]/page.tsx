@@ -8,6 +8,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import booksGenresOptions from '@/books-genres.json';
 import { useMessage } from '@/context/message.context';
 import { usePathname, useRouter } from 'next/navigation';
+import Reviews from '@/components/reviews';
 
 type PageProps = {
   params: { id: string };
@@ -40,6 +41,7 @@ function DetailsBookPage({ params }: PageProps) {
             className="w-full rounded-lg shadow-lg"
           />
           <p>Autor: {author}</p>
+          <Reviews bookId={book.id} />
         </div>
       </div>
     );
