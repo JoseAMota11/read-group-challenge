@@ -1,11 +1,15 @@
 'use client';
 
 import ErrorMessage from '@/components/error-message';
+import { useMessage } from '@/context/message.context';
 import { registerSchema } from '@/schemas/register.schema';
+import { registerUser } from '@/services/register.service';
+import { Register } from '@/types/register.type';
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from 'antd';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Controller,
   FieldValues,
@@ -19,9 +23,19 @@ function RegisterPage() {
     control,
     formState: { errors },
   } = useForm({ resolver: zodResolver(registerSchema) });
+  const messageApi = useMessage();
+  const router = useRouter();
 
-  const onValid: SubmitHandler<FieldValues> = (values) => {
-    console.log(values);
+  const onValid: SubmitHandler<FieldValues> = async (values) => {
+    const { confirmPassword: _confirmPassword, ...rest } = values;
+    const [error, message] = await registerUser(rest as Register);
+
+    if (error) {
+      messageApi.error(error);
+    } else {
+      messageApi.success(message);
+      router.push('/login');
+    }
   };
 
   return (
