@@ -8,7 +8,7 @@ import { useFilters } from '@/context/filters.context';
 import { Pagination } from 'antd';
 
 function Main() {
-  const [books, setBooks] = useState<Book[]>([]);
+  const [books, setBooks] = useState<Book[]>();
   const [pagination, setPagination] = useState<Response['pagination']>();
   const { filters, handleSetFilters, refresh } = useFilters();
 
@@ -28,6 +28,14 @@ function Main() {
   const handlePageSizeChange = (_: number, pageSize: number) => {
     handleSetFilters({ current: '1', size: String(pageSize) });
   };
+
+  if (!books) {
+    return (
+      <p className="text-center">
+        Aún no tienes ningún libro guardado. ¡Empieza a guardar tus libros! ✨
+      </p>
+    );
+  }
 
   return (
     <main className="flex flex-col items-center gap-4">

@@ -7,7 +7,7 @@ import { Button, Tag, Tooltip } from 'antd';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import booksGenresOptions from '@/books-genres.json';
 import { useMessage } from '@/context/message.context';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 type PageProps = {
   params: { id: string };
@@ -16,13 +16,11 @@ type PageProps = {
 function DetailsBookPage({ params }: PageProps) {
   const { id } = params;
   const [book, setBook] = useState<Book>();
-  const [_error, setError] = useState<string>();
 
   useEffect(() => {
     (async () => {
-      const [error, book] = await getOneBook(id);
+      const [_error, book] = await getOneBook(id);
 
-      setError(error);
       setBook(book);
     })();
   }, [id]);
@@ -79,8 +77,11 @@ function ActionBar({
 }) {
   const messageApi = useMessage();
   const router = useRouter();
+  const pathname = usePathname();
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    router.push(pathname + '/edit');
+  };
 
   const handleDelete = async () => {
     const [error, message] = await deleteBook(book.id);
