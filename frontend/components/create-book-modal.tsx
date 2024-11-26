@@ -81,7 +81,7 @@ function CreateBookModal({
             <Input
               {...field}
               id={field.name}
-              placeholder="Ej: Don Quijote de la Mancha"
+              placeholder="Don Quijote de la Mancha"
               status={errors.title && 'error'}
             />
           )}
@@ -94,7 +94,7 @@ function CreateBookModal({
             <Input
               {...field}
               id={field.name}
-              placeholder="Ej: Miguel de Cervantes"
+              placeholder="Miguel de Cervantes"
               status={errors.author && 'error'}
             />
           )}
@@ -109,7 +109,7 @@ function CreateBookModal({
               id={field.name}
               min={1000}
               max={9999}
-              placeholder="Ej: 1605"
+              placeholder="1605"
               style={{ width: '100%' }}
               status={errors.year && 'error'}
             />
@@ -124,7 +124,7 @@ function CreateBookModal({
               {...field}
               id={field.name}
               mode="multiple"
-              placeholder="Ej: Aventura, Acción, etc."
+              placeholder="Aventura, Acción, etc."
               status={errors.genre && 'error'}
               options={booksGenresOptions}
             />
@@ -138,7 +138,7 @@ function CreateBookModal({
             <Input
               {...field}
               id={field.name}
-              placeholder="Ej: https://example.image.com/"
+              placeholder="https://example.image.com/"
             />
           )}
         />
@@ -152,7 +152,7 @@ function CreateBookModal({
               id={field.name}
               min={1}
               max={5}
-              placeholder="Ej: 5/5"
+              placeholder="5"
               style={{ width: '100%' }}
             />
           )}

@@ -19,6 +19,7 @@ import booksGenresOptions from '@/books-genres.json';
 import { useMessage } from '@/context/message.context';
 import { usePathname, useRouter } from 'next/navigation';
 import Reviews from '@/components/reviews';
+import ImagePlaceholder from '@/components/image-placeholder';
 
 type PageProps = {
   params: { id: string };
@@ -47,11 +48,15 @@ function DetailsBookPage({ params }: PageProps) {
           <h3 className="text-xl text-center font-semibold max-[500px]:text-base">
             {title} &middot; {author}
           </h3>
-          <img
-            src={coverImage}
-            alt={title}
-            className="w-full rounded-lg shadow-lg"
-          />
+          {coverImage ? (
+            <img
+              src={coverImage}
+              alt={title}
+              className="w-full object-cover aspect-[9/16] rounded-lg"
+            />
+          ) : (
+            <ImagePlaceholder />
+          )}
           <Reviews bookId={book.id} />
         </div>
       </div>
