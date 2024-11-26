@@ -20,8 +20,8 @@ export class BookModel {
       params.author = `%${filters.author}%`;
     }
     if (filters?.year) {
-      conditions.push('year = @year');
-      params.year = filters.year;
+      conditions.push('year LIKE @year');
+      params.year = `%${filters.year}%`;
     }
     if (filters?.genre) {
       conditions.push('genre LIKE @genre');

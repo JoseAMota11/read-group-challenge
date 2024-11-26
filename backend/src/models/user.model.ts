@@ -36,7 +36,7 @@ export class UserModel {
     }
 
     const token = jwt.sign(
-      { id: dbUser.id, email: dbUser.email },
+      { id: dbUser.id, username: dbUser.username },
       config.SECRET_KEY,
       { expiresIn: '6h' }
     );
