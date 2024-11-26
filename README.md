@@ -3,9 +3,64 @@
 
 ## Descripción
 
-Sistema de Gestión de Biblioteca Personal es un proyecto CRUD desarrollado completamente en TypeScript, con **Node.js** en el backend y **Next.js** en el frontend. Este proyecto permite:
+Sistema de Gestión de Biblioteca Personal es un proyecto CRUD desarrollado completamente en TypeScript, con **Node.js** en el backend y **Next.js** en el frontend. Entre sus funciones se encuentran:
 
-- **(Proyecto no terminado).**
+### Frontend (React/Next.js)
+
+1. **Interfaz de usuario responsiva:**
+   - La aplicación se adapta a diferentes tamaños de pantalla (móviles, tabletas, escritorios).
+
+2. **Gestión de estado:**
+   - Uso de Context API o Redux para manejar el estado global de la aplicación.
+
+3. **Rutas protegidas:**
+   - Implementación de autenticación en las rutas para restringir el acceso a usuarios no autenticados.
+
+4. **Manejo de formularios:**
+   - Formularios con validaciones personalizadas para:
+     - Registro y login de usuarios.
+     - Creación, edición y eliminación de libros.
+
+5. **Búsqueda y filtros:**
+   - Barra de búsqueda para encontrar libros por título.
+   - Filtros avanzados para refinar resultados por:
+     - Autor.
+     - Año de publicación.
+     - Género.
+
+6. **Vista detallada de libros:**
+   - Página individual para cada libro con información completa (título, autor, año, géneros, portada, reseñas, etc.).
+
+7. **Favoritos:**
+   - Funcionalidad para marcar y desmarcar libros como favoritos.
+
+8. **Dark/Light mode:**
+   - Alternancia entre tema claro y oscuro para personalizar la experiencia del usuario.
+
+### Backend (Node.js/Express)
+
+1. **API RESTful:**
+   - Desarrollo de una API estructurada para soportar todas las funcionalidades del frontend, incluyendo:
+     - CRUD de libros.
+     - Autenticación de usuarios.
+     - Manejo de reseñas y calificaciones.
+     - Exportación de datos.
+
+2. **Autenticación JWT:**
+   - Sistema seguro de inicio de sesión y autorización basado en tokens JWT para proteger rutas y recursos.
+
+3. **Conexión a base de datos:**
+   - Gestión de datos almacenados en una base de datos para:
+     - Usuarios.
+     - Libros.
+     - Reseñas y calificaciones.
+
+4. **Validaciones y manejo de errores:**
+   - Validación de entradas para asegurarse de que los datos cumplen los requisitos.
+   - Respuestas claras y detalladas en caso de errores (ejemplo: credenciales incorrectas, datos faltantes).
+
+5. **Exportación a CSV:**
+   - Endpoint para generar y descargar archivos CSV con la información de la biblioteca personal del usuario.
 
 ## Requisitos previos
 
@@ -27,7 +82,7 @@ Ejecuta el siguiente comando para clonar el repositorio en tu máquina local:
 git clone https://github.com/JoseAMota11/read-group-challenge.git
 ```
 
-### 2. Configurar el Frontend
+### 2. Configurar el frontend
 
 1. Accede al directorio del frontend:
 
@@ -49,7 +104,7 @@ git clone https://github.com/JoseAMota11/read-group-challenge.git
 
    Esto levantará el frontend en `http://localhost:3000`.
 
-### 3. Configurar el Backend
+### 3. Configurar el backend
 
 1. Accede al directorio del backend:
 
@@ -129,10 +184,6 @@ read-group-challenge/
     └── vite.config.ts          # Configuración de Vite
 ```
 
-## Características
-
-*TODO.*
-
 ## Env
 
 Backend: *.env*
@@ -150,12 +201,62 @@ NEXT_PUBLIC_API_URL=http://localhost:4000/api/v1
 
 ## Recomendaciones
 
-Este proyecto aún está en desarrollo. Por ello, le sugiero probar el backend de manera independiente utilizando herramientas como Postman o cualquier cliente HTTP de su preferencia.
+Este proyecto ya está finalizado y listo para probarse. A continuación, se brindan algunas recomendaciones para garantizar una experiencia óptima durante la prueba:
 
-Si desea probar el frontend, puede iniciar sesión con las siguientes credenciales de prueba:
+1. **Probar el backend:**
+   - Puedes probar la API RESTful utilizando herramientas como **Postman** o cualquier cliente HTTP de tu preferencia para verificar los endpoints y sus respuestas.
 
-- Correo: <jama11@gmail.com>
-- Contraseña: `123456`
+2. **Probar el frontend:**
+   - Para una experiencia más realista, se recomienda ejecutar el frontend (Next.js) en **modo producción** siguiendo los pasos indicados más abajo.
+
+3. **Credenciales de prueba:**
+   - Puedes iniciar sesión en la aplicación con las siguientes credenciales de prueba:
+     - **Correo:** `jama11@gmail.com`
+     - **Contraseña:** `123456`
+
+### Pasos para ejecutar el frontend (Next.js) en modo producción
+
+1. **Asegúrate de tener instaladas las dependencias**
+   - Si no lo has hecho antes, instala las dependencias del proyecto usando **npm** o **yarn**:
+
+     ```bash
+     npm install
+     ```
+
+     o
+
+     ```bash
+     yarn install
+     ```
+
+2. **Genera el build de producción**
+   - Usa el comando `build` para generar los archivos optimizados para producción:
+
+     ```bash
+     npm run build
+     ```
+
+     o
+
+     ```bash
+     yarn build
+     ```
+
+3. **Ejecuta el servidor en modo producción**
+   - Una vez generado el build, inicia el servidor de producción con:
+
+     ```bash
+     npm run start
+     ```
+
+     o
+
+     ```bash
+     yarn start
+     ```
+
+4. **Accede a la aplicación**
+   - Abre tu navegador y ve a [http://localhost:3000](http://localhost:3000) para probar la aplicación en modo producción.
 
 ---
 
