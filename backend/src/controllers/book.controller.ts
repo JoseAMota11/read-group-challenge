@@ -109,7 +109,7 @@ export class BookController {
       const book = BookModel.findOneById(id, req.userId!);
 
       if (!book) {
-        res.status(404).json({ message: 'Este libro no está disponible' });
+        res.status(404).json({ error: 'Este libro no está disponible' });
         return;
       }
 
