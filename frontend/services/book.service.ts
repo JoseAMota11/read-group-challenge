@@ -111,3 +111,28 @@ export const deleteBook = async (id: string) => {
   const { message }: { message: string } = await res.json();
   return [undefined, message] as const;
 };
+
+export const exportBookCSV = async (id: string) => {
+  const res = await fetch(`${API_URL}/books/${id}/export`, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: 'Bearer ' + getToken(),
+    },
+  });
+
+  if (!res.ok) {
+    const { error }: { error: string } = await res.json();
+    return [error, undefined] as const;
+  }
+
+  const blob = await res.blob();
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `book-${id}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  window.URL.revokeObjectURL(url);
+};

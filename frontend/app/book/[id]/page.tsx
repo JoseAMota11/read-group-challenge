@@ -1,8 +1,18 @@
 'use client';
 
-import { deleteBook, getOneBook, updateBook } from '@/services/book.service';
+import {
+  deleteBook,
+  exportBookCSV,
+  getOneBook,
+  updateBook,
+} from '@/services/book.service';
 import { Book } from '@/types/book.type';
-import { DeleteOutlined, EditOutlined, StarOutlined } from '@ant-design/icons';
+import {
+  DeleteOutlined,
+  EditOutlined,
+  FileExcelOutlined,
+  StarOutlined,
+} from '@ant-design/icons';
 import { Button, Tag, Tooltip } from 'antd';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import booksGenresOptions from '@/books-genres.json';
@@ -113,8 +123,20 @@ function ActionBar({
     }
   };
 
+  const handleExportCSV = async () => {
+    await exportBookCSV(book.id);
+  };
+
   return (
     <div className="w-full flex items-center justify-end gap-2">
+      <Tooltip title="Exportar" color="#22c55e">
+        <Button
+          type="text"
+          className="hover:text-green-500 dark:text-neutral-100 dark:hover:text-green-500"
+          icon={<FileExcelOutlined className="text-xl" />}
+          onClick={handleExportCSV}
+        />
+      </Tooltip>
       <Tooltip title="Editar" color="#3b82f6">
         <Button
           type="text"
