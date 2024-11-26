@@ -64,13 +64,15 @@ function CreateBookModal({
       onCancel={handleCancel}
       footer={false}
       closeIcon={false}
-      className="w-fit"
-      title={<h2 className="text-lg font-semibold">Guardar libro</h2>}
+      className="w-fit dark:[&_.ant-modal-content]:bg-neutral-800"
     >
       <form
         onSubmit={handleSubmit(onValid, (errors) => console.log(errors))}
-        className="grid grid-cols-[auto,300px] gap-4 items-center"
+        className="dark:text-neutral-100 grid grid-cols-[auto,300px] gap-4 items-center"
       >
+        <h2 className="col-span-full dark:text-neutral-100 text-lg font-semibold">
+          Guardar libro
+        </h2>
         <label htmlFor="title">Título:</label>
         <Controller
           name="title"

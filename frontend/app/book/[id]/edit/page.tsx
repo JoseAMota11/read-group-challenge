@@ -56,7 +56,7 @@ function EditBookPage() {
     <div className="h-screen grid place-content-center">
       <form
         onSubmit={handleSubmit(onValid, (errors) => console.log(errors))}
-        className="bg-white p-4 rounded-lg shadow-lg grid grid-cols-[auto,300px] gap-4 items-center"
+        className="bg-white dark:bg-neutral-800 p-4 rounded-lg shadow-lg grid grid-cols-[auto,300px] gap-4 items-center"
       >
         <h2 className="col-span-full text-lg font-semibold">
           Actualizar libro

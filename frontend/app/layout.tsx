@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-200`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-neutral-200 dark:bg-neutral-700 dark:text-neutral-100`}
       >
         <AntdRegistry>
           <MessageProvider>{children}</MessageProvider>

@@ -27,13 +27,13 @@ function ReviewCard({
   };
 
   return (
-    <div className="bg-neutral-50 p-2 flex flex-col rounded-lg">
+    <div className="bg-neutral-50 dark:bg-neutral-800 p-2 flex flex-col rounded-lg">
       <div className="flex items-center justify-between">
         <p className="text-sm text-neutral-400">{createdAt}</p>
         <Button
           type="text"
-          className="hover:text-red-500"
-          icon={<DeleteOutlined className="text-sm text-neutral-400" />}
+          className="text-neutral-400 hover:text-red-500 dark:hover:bg-white/10"
+          icon={<DeleteOutlined className="text-sm" />}
           onClick={handleDelete}
         />
       </div>

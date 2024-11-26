@@ -34,13 +34,14 @@ function DetailsBookPage({ params }: PageProps) {
         <div className="w-[400px] flex flex-col items-center gap-4">
           <ActionBar book={book} setBook={setBook} />
           <Genres genre={genre} />
-          <h3 className="text-xl font-semibold">{title}</h3>
+          <h3 className="text-xl text-center font-semibold">
+            {title} &middot; {author}
+          </h3>
           <img
             src={coverImage}
             alt={title}
             className="w-full rounded-lg shadow-lg"
           />
-          <p>Autor: {author}</p>
           <Reviews bookId={book.id} />
         </div>
       </div>
@@ -117,7 +118,7 @@ function ActionBar({
       <Tooltip title="Editar" color="#3b82f6">
         <Button
           type="text"
-          className="hover:text-blue-500"
+          className="hover:text-blue-500 dark:text-neutral-100 dark:hover:text-blue-500"
           icon={<EditOutlined className="text-xl" />}
           onClick={handleEdit}
         />
@@ -125,7 +126,7 @@ function ActionBar({
       <Tooltip title="Borrar" color="#ef4444">
         <Button
           type="text"
-          className="hover:text-red-500"
+          className="hover:text-red-500 dark:text-neutral-100 dark:hover:text-red-500"
           icon={<DeleteOutlined className="text-xl" />}
           onClick={handleDelete}
         />
@@ -137,7 +138,9 @@ function ActionBar({
         <Button
           type="text"
           className={
-            book.isFavorite ? 'text-yellow-500' : 'hover:text-yellow-500'
+            book.isFavorite
+              ? 'text-yellow-500'
+              : 'hover:text-yellow-500 dark:text-neutral-100 dark:hover:text-yellow-500'
           }
           icon={<StarOutlined className="text-xl" />}
           onClick={handleFavorite}

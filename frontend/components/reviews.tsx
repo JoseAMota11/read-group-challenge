@@ -56,10 +56,10 @@ function Reviews({ bookId }: { bookId: string }) {
   }, [token]);
 
   return (
-    <div className="w-full bg-white p-4 rounded-lg shadow-lg">
+    <div className="w-full bg-white dark:bg-neutral-800 p-4 rounded-lg shadow-lg">
       <div className="flex flex-col gap-2">
         <Input.TextArea
-          className="min-h-16 max-h-24"
+          className="min-h-16 max-h-24 dark:bg-neutral-600 dark:placeholder:text-neutral-400"
           placeholder="¡Me encantó este libro!"
           value={review.comment}
           onChange={(e) =>
@@ -70,15 +70,17 @@ function Reviews({ bookId }: { bookId: string }) {
           }
         />
         <div className="flex justify-between items-center">
-          <Rate
-            value={review.rating}
-            onChange={(value) =>
-              setReview((prevReview) => ({ ...prevReview, rating: value }))
-            }
-          />
+          <div className="p-1 rounded-md dark:bg-neutral-400">
+            <Rate
+              value={review.rating}
+              onChange={(value) =>
+                setReview((prevReview) => ({ ...prevReview, rating: value }))
+              }
+            />
+          </div>
           <Button
             type="primary"
-            className="self-end"
+            className=" dark:text-neutral-100"
             disabled={!review.comment || !review.rating}
             onClick={handlePostReview}
           >
@@ -90,10 +92,10 @@ function Reviews({ bookId }: { bookId: string }) {
       <div className="py-4">
         {reviews.length === 0 ? (
           <p className="text-neutral-400 text-center">
-            No hay reseñas. Expresa lo que piensas de este libro.
+            No has reseñado este libro. Expresa lo que piensas de él.
           </p>
         ) : (
-          <div className="space-y-2 bg-neutral-200 p-2 rounded-lg">
+          <div className="space-y-2 bg-neutral-200 dark:bg-neutral-600 p-2 rounded-lg">
             {reviews.map((review) => (
               <ReviewCard
                 key={review.id}
