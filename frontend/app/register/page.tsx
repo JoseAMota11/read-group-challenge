@@ -42,7 +42,7 @@ function RegisterPage() {
     <div className="h-screen grid place-content-center">
       <form
         onSubmit={handleSubmit(onValid)}
-        className="w-[360px] bg-white p-4 rounded-lg shadow-lg flex flex-col gap-4"
+        className="w-[360px] bg-white p-4 rounded-lg shadow-lg flex flex-col gap-4 max-[400px]:w-full"
       >
         <h2 className="text-center text-xl font-semibold">Regístrate</h2>
         <Controller

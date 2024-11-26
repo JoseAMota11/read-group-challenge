@@ -47,7 +47,7 @@ function Main() {
 
   return (
     <main className="flex flex-col items-center gap-4">
-      <div className="w-[800px] grid grid-cols-[repeat(auto-fill,minmax(240px,1fr))] gap-4">
+      <div className="w-[800px] grid grid-cols-[repeat(auto-fill,minmax(160px,1fr))] gap-4 max-[800px]:w-full">
         {books.map((book) => (
           <Card key={book.id} {...book} />
         ))}

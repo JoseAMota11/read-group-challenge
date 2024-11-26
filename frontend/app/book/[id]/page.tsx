@@ -40,11 +40,11 @@ function DetailsBookPage({ params }: PageProps) {
     const { title, coverImage, author, genre } = book;
 
     return (
-      <div className="grid place-content-center py-4">
-        <div className="w-[400px] flex flex-col items-center gap-4">
+      <div className="grid place-content-center py-4 max-[500px]:block">
+        <div className="w-[400px] flex flex-col items-center gap-4 max-[500px]:w-full max-[500px]:px-4">
           <ActionBar book={book} setBook={setBook} />
           <Genres genre={genre} />
-          <h3 className="text-xl text-center font-semibold">
+          <h3 className="text-xl text-center font-semibold max-[500px]:text-base">
             {title} &middot; {author}
           </h3>
           <img
@@ -73,7 +73,7 @@ function Genres({ genre }: { genre: string[] }) {
   return (
     <div className="w-full">
       {transformedGenre.map((value) => (
-        <Tag key={value} className="text-lg">
+        <Tag key={value} className="text-lg max-[500px]:text-base">
           {value}
         </Tag>
       ))}

@@ -68,7 +68,7 @@ function CreateBookModal({
     >
       <form
         onSubmit={handleSubmit(onValid, (errors) => console.log(errors))}
-        className="dark:text-neutral-100 grid grid-cols-[auto,300px] gap-4 items-center"
+        className="dark:text-neutral-100 grid grid-cols-[auto,300px] gap-4 items-center max-[500px]:grid-cols-[auto,180px]"
       >
         <h2 className="col-span-full dark:text-neutral-100 text-lg font-semibold">
           Guardar libro

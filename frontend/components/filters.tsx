@@ -20,7 +20,7 @@ function Filters({ setOpen }: { setOpen: Dispatch<SetStateAction<boolean>> }) {
             }
           />
         </div>
-        <div className="flex flex-1 gap-4 *:w-full [&>div>h4]:font-semibold">
+        <div className="flex flex-1 gap-4 *:w-full [&>div>h4]:font-semibold max-[600px]:flex-wrap max-[600px]:gap-2">
           <div>
             <h4>Autor</h4>
             <Input
