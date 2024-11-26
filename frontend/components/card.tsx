@@ -10,7 +10,7 @@ function Card({ id, title, coverImage }: Book) {
   return (
     <div
       onClick={() => router.push(`book/${id}`)}
-      className="bg-white dark:bg-neutral-800 flex flex-col items-center gap-2 p-2 rounded-xl shadow-xl cursor-pointer"
+      className="bg-white dark:bg-neutral-800 flex flex-col items-center gap-2 p-2 rounded-xl shadow-xl cursor-pointer card"
     >
       <img
         src={coverImage}
