@@ -11,6 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import {
   Controller,
   FieldValues,
@@ -26,15 +27,28 @@ function LoginPage() {
   } = useForm({ resolver: zodResolver(loginSchema) });
   const messageApi = useMessage();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const onValid: SubmitHandler<FieldValues> = async (values) => {
-    const [error, token] = await loginUser(values as Login);
+    try {
+      setLoading(true);
 
-    if (error) {
-      messageApi.error(error);
-    } else {
-      setToken(token!);
-      router.push('/');
+      const [error, token] = await loginUser(values as Login);
+
+      if (error) {
+        messageApi.error(error);
+        return;
+      }
+
+      if (token) {
+        setToken(token);
+        router.push('/');
+      }
+    } catch (err) {
+      console.error(err);
+      messageApi.error('Ocurrió un error inesperado.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,7 +101,13 @@ function LoginPage() {
             </div>
           )}
         />
-        <Button type="primary" htmlType="submit" size="large">
+        <Button
+          type="primary"
+          htmlType="submit"
+          size="large"
+          loading={loading}
+          disabled={loading}
+        >
           Iniciar sesión
         </Button>
         <div className="w-full h-[1px] bg-neutral-200" />
