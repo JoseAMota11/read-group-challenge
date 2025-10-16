@@ -10,6 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import {
   Controller,
   FieldValues,
@@ -25,16 +26,27 @@ function RegisterPage() {
   } = useForm({ resolver: zodResolver(registerSchema) });
   const messageApi = useMessage();
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const onValid: SubmitHandler<FieldValues> = async (values) => {
-    const { confirmPassword: _confirmPassword, ...rest } = values;
-    const [error, message] = await registerUser(rest as Register);
+    try {
+      setLoading(true);
 
-    if (error) {
-      messageApi.error(error);
-    } else {
+      const { confirmPassword: _confirmPassword, ...rest } = values;
+      const [error, message] = await registerUser(rest as Register);
+
+      if (error) {
+        messageApi.error(error);
+        return;
+      }
+
       messageApi.success(message);
       router.push('/login');
+    } catch (err) {
+      console.error(err);
+      messageApi.error('Ocurrió un error inesperado.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -128,7 +140,13 @@ function RegisterPage() {
             </div>
           )}
         />
-        <Button type="primary" htmlType="submit" size="large">
+        <Button
+          type="primary"
+          htmlType="submit"
+          size="large"
+          loading={loading}
+          disabled={loading}
+        >
           Registrarse
         </Button>
         <Link href="/login" className="text-center text-blue-400 underline">
