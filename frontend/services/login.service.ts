@@ -11,8 +11,8 @@ export const loginUser = async (body: Login) => {
   });
 
   if (!res.ok) {
-    const { error }: { error: string } = await res.json();
-    return [error, undefined] as const;
+    const { message }: { message: string } = await res.json();
+    return [message, undefined] as const;
   }
 
   const { token }: { token: string } = await res.json();
